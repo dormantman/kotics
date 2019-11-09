@@ -1,0 +1,50 @@
+{% load static %}
+{% load compress %}
+
+
+<!doctype html>
+<html lang="ru">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="keywords" content="Kotics, Cryengine Gothic"/>
+        <meta name="description" content=""/>
+
+        <meta name="theme-color" content="#20232a">
+
+        <link rel="icon" href="{% static 'favicon.png' %}?{{ RID }}" type="image/x-icon">
+        <link rel="shortcut icon" href="{% static 'favicon.png' %}?{{ RID }}" type="image/x-icon">
+        <link rel="apple-touch-icon" href="{% static 'favicon.png' %}?{{ RID }}" type="image/x-icon">
+
+        {#        {% compress css %}#}
+        <link rel="stylesheet" href="{% static '/style/main.css' %}"/>
+        <link rel="stylesheet" href="{% static '/style/games.css' %}"/>
+        {#        {% endcompress %}#}
+
+        {% block title %}<title>{{ pageTitle }}</title>{% endblock %}
+
+    {% endblock head %}
+</head>
+<body>
+<div id="app"></div>
+<div id="content" style="display: none;">
+    {% block content %}{% endblock %}
+</div>
+</body>
+{#{% compress js %}#}
+<script type="text/javascript">
+    let json_data = `{{ additional | safe }}`;
+    if (json_data) json_data = JSON.parse(json_data);
+    else json_data = {};
+    let data = json_data;
+
+</script>
+{#{% endcompress %}#}
+{% compress js %}
+    <script src="{% static "frontend/main.js" %}"></script>
+{% endcompress %}
+</html>
+
